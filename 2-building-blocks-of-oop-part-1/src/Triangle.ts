@@ -15,7 +15,8 @@ export class Triangle extends Shape {
 
   public getType(): string {
     const distances = this.points.map((point, index) => {
-      return point.distance(this.points[index + 1]).toFixed(1);
+      const nextPointIdx = index === this.points.length - 1 ? 0 : index + 1;
+      return point.distance(this.points[nextPointIdx]).toFixed(1);
     });
 
     const uniqueDistances = new Set(distances);

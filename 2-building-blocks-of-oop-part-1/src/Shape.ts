@@ -1,23 +1,17 @@
 import { Point } from './Point';
 
 export abstract class Shape {
-  protected color: string;
-  protected filled: boolean;
-  protected points: Point[];
-
   constructor(points: Point[]);
   constructor(points: Point[], color: string, filled: boolean);
-  constructor(points: Point[], color = 'green', filled = true) {
+  constructor(
+    protected points: Point[],
+    protected color: string = 'green',
+    protected filled: boolean = true
+  ) {
     if (points.length < 3) {
       throw new Error('The Shape should not have less than three points');
     }
-
-    this.points = points;
-    this.color = color;
-    this.filled = filled;
   }
-
-  abstract getType(): string;
 
   public toString(): string {
     const filledText = this.filled ? 'filled' : 'not filled';
@@ -30,7 +24,10 @@ export abstract class Shape {
 
   public getPerimeter(): number {
     return this.points.reduce((acc, currentPoint, index, points) => {
-      return acc + currentPoint.distance(points[index + 1]);
+      const nextPointIdx = index === points.length - 1 ? 0 : index + 1;
+      return acc + currentPoint.distance(points[nextPointIdx]);
     }, 0);
   }
+
+  abstract getType(): string;
 }

@@ -1,17 +1,10 @@
 export class Point {
-  private readonly x: number;
-  private readonly y: number;
-
-  private calcDistance(x: number, y: number): number {
-    return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
-  }
-
   constructor();
   constructor(x: number, y: number);
-  constructor(x = 0, y = 0) {
-    this.x = x;
-    this.y = y;
-  }
+  constructor(
+    private readonly x: number = 0,
+    private readonly y: number = 0
+  ) {}
 
   public toString(): string {
     return `(${this.x}, ${this.y})`;
@@ -31,5 +24,9 @@ export class Point {
     }
 
     return this.calcDistance(0, 0);
+  }
+
+  private calcDistance(x: number, y: number): number {
+    return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
   }
 }
